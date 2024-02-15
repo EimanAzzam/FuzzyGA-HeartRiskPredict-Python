@@ -247,12 +247,12 @@ for gen in range(100):
 
     newGen = []
     for s in range(500):
-        e0 = np.random.choice(elements_0) * np.random.uniform(0.95,1.05)
-        e1 = np.random.choice(elements_1) * np.random.uniform(0.95,1.05)
-        e2 = np.random.choice(elements_2) * np.random.uniform(0.95,1.05)
-        e3 = np.random.choice(elements_3) * np.random.uniform(0.95,1.05)
-        e4 = np.random.choice(elements_4) * np.random.uniform(0.95,1.05)
-        e5 = np.random.choice(elements_5) * np.random.uniform(0.95,1.05)
+        e1 = np.random.choice(elements_0) * np.random.uniform(0.95,1.05)
+        e2 = np.random.choice(elements_1) * np.random.uniform(0.95,1.05)
+        e3 = np.random.choice(elements_2) * np.random.uniform(0.95,1.05)
+        e4 = np.random.choice(elements_3) * np.random.uniform(0.95,1.05)
+        e5 = np.random.choice(elements_4) * np.random.uniform(0.95,1.05)
+        e6 = np.random.choice(elements_5) * np.random.uniform(0.95,1.05)
 
         e1_range = (1, 35)
         e2_range = (1, 175)
@@ -267,7 +267,7 @@ for gen in range(100):
         e5 = max(min(e5, e5_range[1]), e5_range[0])
         e6 = max(min(e6, e6_range[1]), e6_range[0])
 
-        newGen.append((e0,e1,e2,e3,e4,e5))
+        newGen.append((e1,e2,e3,e4,e5,e6))
 
     solutions = newGen
         
