@@ -1,3 +1,4 @@
+from math import e
 import pandas as pd
 import numpy as np
 import skfuzzy as fuzz
@@ -68,13 +69,6 @@ def membership(b1,b2,b3,b4,b5,b6):
     ex_2_range = (7, 20)
     BMI_1_range = (11, 25)
     BMI_2_range = (12, 40)
-    b1_range = (1, 35)
-    b2_range = (1, 175)
-    b3_range = (1, 65)
-    b4_range = (1, 25)
-    b5_range = (1, 7.5)
-    b6_range = (1, 14)
-
 
     # Adjust values to fall within range
     age_1 = max(min(age_1, age_1_range[1]), age_1_range[0])
@@ -89,14 +83,6 @@ def membership(b1,b2,b3,b4,b5,b6):
     ex_2 = max(min(ex_2, ex_2_range[1]), ex_2_range[0])
     BMI_1 = max(min(BMI_1, BMI_1_range[1]), BMI_1_range[0])
     BMI_2 = max(min(BMI_2, BMI_2_range[1]), BMI_2_range[0])
-    # Ensure b1 to b6 fall within their respective ranges
-    b1 = max(min(b1, b1_range[1]), b1_range[0])
-    b2 = max(min(b2, b2_range[1]), b2_range[0])
-    b3 = max(min(b3, b3_range[1]), b3_range[0])
-    b4 = max(min(b4, b4_range[1]), b4_range[0])
-    b5 = max(min(b5, b5_range[1]), b5_range[0])
-    b6 = max(min(b6, b6_range[1]), b6_range[0])
-
 
     # Assertions for age_1, age_2
     assert 20 <= age_1 and age_1 <= age_2 and age_2 <= 90
@@ -267,6 +253,19 @@ for gen in range(100):
         e3 = np.random.choice(elements_3) * np.random.uniform(0.95,1.05)
         e4 = np.random.choice(elements_4) * np.random.uniform(0.95,1.05)
         e5 = np.random.choice(elements_5) * np.random.uniform(0.95,1.05)
+
+        e1_range = (1, 35)
+        e2_range = (1, 175)
+        e3_range = (1, 65)
+        e4_range = (1, 25)
+        e5_range = (1, 7.5)
+        e6_range = (1, 14)
+        e1 = max(min(e1, e1_range[1]), e1_range[0])
+        e2 = max(min(e2, e2_range[1]), e2_range[0])
+        e3 = max(min(e3, e3_range[1]), e3_range[0])
+        e4 = max(min(e4, e4_range[1]), e4_range[0])
+        e5 = max(min(e5, e5_range[1]), e5_range[0])
+        e6 = max(min(e6, e6_range[1]), e6_range[0])
 
         newGen.append((e0,e1,e2,e3,e4,e5))
 
