@@ -122,7 +122,8 @@ def membership(b1,b2,b3,b4,b5,b6):
     BMI_high = mf.trapmf(x_BMI, [BMI_1, BMI_2, 40, 40])
 
     error = 0
-    for i in range(1000):
+    size = 1000
+    for i in range(size):
         input_age = data_array[i][0]
         input_chol = data_array[i][1]
         input_bp_raw = data_array[i][2]
@@ -201,7 +202,10 @@ def membership(b1,b2,b3,b4,b5,b6):
         if defuzzified == 0 or output != input_risk :
             error = error + 1
     
-    errorPercent = (error/1000)*100
+    errorPercent = (error/size)*100
     return errorPercent
 
 testError = membership(dAta[0],dAta[1],dAta[2],dAta[3],dAta[4],dAta[5])
+Acc = 100 - testError
+print(testError)
+print(Acc)
