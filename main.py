@@ -130,8 +130,8 @@ def membership(b1,b2,b3,b4,b5,b6):
 
     target_sum = 0
     output_sum = 0
-    
-    for i in range(10):
+    size = 10
+    for i in range(size):
         input_age = data_array[count][0]
         input_chol = data_array[count][1]
         input_bp_raw = data_array[count][2]
@@ -197,14 +197,18 @@ def membership(b1,b2,b3,b4,b5,b6):
         
         #defuzzification
         out_risk = np.fmax(np.fmax(out_low,out_mid), out_high)
-        defuzzified  = fuzz.defuzz(y_risk, out_risk, 'centroid')
+        try:
+            defuzzified = fuzz.defuzz(y_risk, out_risk, 'centroid')
+        except AssertionError as e:
+            defuzzified = 0
+            size -= 1
         result = fuzz.interp_membership(y_risk, out_risk, defuzzified)
 
         target_sum = target_sum + input_risk
         output_sum = output_sum + defuzzified
     
-    target = target_sum/10
-    output = output_sum/10
+    target = target_sum/size
+    output = output_sum/size
 
     fitness_avg = fitness(target,output)
     return fitness_avg
