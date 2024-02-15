@@ -1,4 +1,3 @@
-from math import e
 import pandas as pd
 import numpy as np
 import skfuzzy as fuzz
@@ -133,6 +132,15 @@ def membership(b1,b2,b3,b4,b5,b6):
         input_exercise = data_array[i][4]
         input_BMI = data_array[i][5]
         input_risk = data_array[i][6]
+
+        print(input_age)
+        print(input_chol)
+        print(input_bp)
+        print(input_heartrate)
+        print(input_exercise)
+        print(input_BMI)
+        print(input_risk)
+        print(error)
 
         #Fuzzify input to get membership values
         age_fit_low = fuzz.interp_membership(x_age, age_low, input_age)
