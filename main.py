@@ -1,8 +1,16 @@
-
+from math import e
+import pandas as pd
 import numpy as np
 import skfuzzy as fuzz
 import skfuzzy.membership as mf
 import matplotlib.pyplot as plt
+
+# Read data from Excel file into a DataFrame
+df = pd.read_excel(r'C:\Users\Hp\Downloads\HeartAttackTrain.xlsx')
+
+# Convert DataFrame to NumPy array
+data_array = df.to_numpy()
+
 
 # mapping of parameters
 x_age = np.arange(0, 90, 1) # 18 - 90
@@ -26,6 +34,7 @@ def fitness(target,output):
     
 def membership(b1,b2,b3,b4,b5,b6):
 
+    count = 0
     #ensure all positive values
     b1 = abs(b1)
     b2 = abs(b2)
@@ -75,7 +84,6 @@ def membership(b1,b2,b3,b4,b5,b6):
     BMI_1 = max(min(BMI_1, BMI_1_range[1]), BMI_1_range[0])
     BMI_2 = max(min(BMI_2, BMI_2_range[1]), BMI_2_range[0])
 
-
     # Assertions for age_1, age_2
     assert 20 <= age_1 and age_1 <= age_2 and age_2 <= 90
 
@@ -94,14 +102,6 @@ def membership(b1,b2,b3,b4,b5,b6):
     # Assertions for BMI_1, BMI_2
     assert 10 <= BMI_1 and BMI_1 <= BMI_2 and BMI_2 <= 40
 
-    #test parameters
-    input_age = 87
-    input_chol = 313
-    input_bp = 91
-    input_heartrate = 110
-    input_exercise = 14.79
-    input_BMI = 29.33
-    input_risk = 0
 
     #define membership functions using passed parameters
     age_low = mf.trapmf(x_age, [0, 0, 20, age_1])
@@ -130,7 +130,18 @@ def membership(b1,b2,b3,b4,b5,b6):
 
     target_sum = 0
     output_sum = 0
+    
     for i in range(10):
+        input_age = data_array[count][0]
+        input_chol = data_array[count][1]
+        input_bp_raw = data_array[count][2]
+        num, denom = map(int, input_bp_raw.split('/'))
+        input_bp = denom + (1/3) * (num - denom)
+        input_heartrate = data_array[count][3]
+        input_exercise = data_array[count][4]
+        input_BMI = data_array[count][5]
+        input_risk = data_array[count][6]
+        count = count + 1
         #Fuzzify input to get membership values
         age_fit_low = fuzz.interp_membership(x_age, age_low, input_age)
         age_fit_mid = fuzz.interp_membership(x_age, age_mid, input_age)
@@ -209,7 +220,7 @@ for s in range(500):
                       np.random.uniform(1,7.5),
                       np.random.uniform(1,14 )))
 
-for gen in range(1000):
+for gen in range(100):
     rankedsolutions = []
     for s in solutions:
         rankedsolutions.append((membership(s[0],s[1],s[2],s[3],s[4],s[5]),s))
@@ -236,14 +247,27 @@ for gen in range(1000):
 
     newGen = []
     for s in range(500):
-        e0 = np.random.choice(elements_0) * np.random.uniform(0.95,1.05)
-        e1 = np.random.choice(elements_1) * np.random.uniform(0.95,1.05)
-        e2 = np.random.choice(elements_2) * np.random.uniform(0.95,1.05)
-        e3 = np.random.choice(elements_3) * np.random.uniform(0.95,1.05)
-        e4 = np.random.choice(elements_4) * np.random.uniform(0.95,1.05)
-        e5 = np.random.choice(elements_5) * np.random.uniform(0.95,1.05)
+        e1 = np.random.choice(elements_0) * np.random.uniform(0.95,1.05)
+        e2 = np.random.choice(elements_1) * np.random.uniform(0.95,1.05)
+        e3 = np.random.choice(elements_2) * np.random.uniform(0.95,1.05)
+        e4 = np.random.choice(elements_3) * np.random.uniform(0.95,1.05)
+        e5 = np.random.choice(elements_4) * np.random.uniform(0.95,1.05)
+        e6 = np.random.choice(elements_5) * np.random.uniform(0.95,1.05)
 
-        newGen.append((e0,e1,e2,e3,e4,e5))
+        e1_range = (1, 35)
+        e2_range = (1, 175)
+        e3_range = (1, 65)
+        e4_range = (1, 25)
+        e5_range = (1, 7.5)
+        e6_range = (1, 14)
+        e1 = max(min(e1, e1_range[1]), e1_range[0])
+        e2 = max(min(e2, e2_range[1]), e2_range[0])
+        e3 = max(min(e3, e3_range[1]), e3_range[0])
+        e4 = max(min(e4, e4_range[1]), e4_range[0])
+        e5 = max(min(e5, e5_range[1]), e5_range[0])
+        e6 = max(min(e6, e6_range[1]), e6_range[0])
+
+        newGen.append((e1,e2,e3,e4,e5,e6))
 
     solutions = newGen
         
