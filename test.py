@@ -133,15 +133,6 @@ def membership(b1,b2,b3,b4,b5,b6):
         input_BMI = data_array[i][5]
         input_risk = data_array[i][6]
 
-        print(input_age)
-        print(input_chol)
-        print(input_bp)
-        print(input_heartrate)
-        print(input_exercise)
-        print(input_BMI)
-        print(input_risk)
-        print(error)
-
         #Fuzzify input to get membership values
         age_fit_low = fuzz.interp_membership(x_age, age_low, input_age)
         age_fit_mid = fuzz.interp_membership(x_age, age_mid, input_age)
@@ -197,15 +188,17 @@ def membership(b1,b2,b3,b4,b5,b6):
         
         #defuzzification
         out_risk = np.fmax(np.fmax(out_low,out_mid), out_high)
-        defuzzified  = fuzz.defuzz(y_risk, out_risk, 'centroid')
-        result = fuzz.interp_membership(y_risk, out_risk, defuzzified)
+        try:
+            defuzzified = fuzz.defuzz(y_risk, out_risk, 'centroid')
+        except AssertionError as e:
+            defuzzified = 0  # For example, set defuzzified to 0
 
         if defuzzified >= 0.5:
             output = 1
         elif defuzzified < 0.5:
             output = 0
 
-        if output != input_risk:
+        if defuzzified == 0 or output != input_risk :
             error = error + 1
     
     errorPercent = (error/1000)*100
