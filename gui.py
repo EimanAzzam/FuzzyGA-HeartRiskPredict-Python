@@ -38,7 +38,7 @@ title_label = tk.Label(root, text="Heart Attack Risk Detection", font=("Sans ser
 title_label.place(relx=0.5, y=50, anchor="center")
 
 # Create labels and entry fields for each input
-labels = ["Age:", "Cholestrol\nlevel:", "Blood\npressure:", "Heart Rate\nper minute:", "Exercise\nHours:", "BMI:"]
+labels = ["Age:", "Cholestrol\nlevel:", "Blood\npressure:", "Heart Rate\nper minute:", "Exercise\nHours per week:", "BMI:"]
 entries = []
 
 for i, label_text in enumerate(labels):
