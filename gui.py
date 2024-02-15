@@ -42,7 +42,7 @@ labels = ["Age:", "Cholestrol\nlevel:", "Blood\npressure:", "Heart Rate\nper min
 entries = []
 
 for i, label_text in enumerate(labels):
-    font_size = 20 if label_text == "Age:" else 12  # Set font size to 20 for "Age" label, 12 for others
+    font_size = 20 if label_text == "Age:" else 13  # Set font size to 20 for "Age" label, 12 for others
     label = tk.Label(root, text=label_text, font=("Arial", font_size), anchor="w", bg="black", fg="white", bd=2, relief="flat")
     label.place(x=50, y=150 + i * 50)
 
